@@ -28,6 +28,13 @@ export default function LoginForm() {
     setPassword(value)
   }
 
+   // Validação do e-mail 
+   const isEmailValid = email.includes('@') && email.length > 0; 
+   // Validação da senha - deve ter 6 ou mais caracteres e conter um dos caracteres especiais 
+   const specialChars = ['@', '*', '#', '&', '%']; 
+   const hasSpecialChar = specialChars.some(char => password.includes(char)); // Verifica se a senha contém algum caractere especial 
+   const isPasswordValid = password.length >= 6 && hasSpecialChar; // Verifica se a senha tem pelo menos 6 caracteres e contém um caractere especial 
+   const isFormValid = isEmailValid && isPasswordValid
 
   return (
     <div className='wrapper'>
@@ -45,7 +52,7 @@ export default function LoginForm() {
         </div>
 
         <div className='button'>
-          <button disabled={email === '' || password.length < 6}>Login</button>
+          <button disabled={!isFormValid}>Login</button>
         </div>
       </div>
     </div>
